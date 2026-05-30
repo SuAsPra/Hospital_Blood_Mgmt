@@ -1,33 +1,32 @@
 # Smart Hospital and Blood Bank Management System
 
-A full-stack MERN application for hospital operations, patient services, blood bank workflows, and pharmacy order management.
+A full-stack MERN application for managing hospital services, blood bank operations, appointments, doctors, patients, medicines, and orders.
 
-**Made by `24BRS1009` for a Web Development course project.**
+Made by `24BRS1009` for a Web Development course project.
 
-## GitHub Description (Use This)
-Smart Hospital and Blood Bank Management System (MERN stack) with role-based dashboards for Admin, Doctor, and Patient, including appointments, blood stock workflows, and pharmacy ordering.
+## GitHub Description
+
+Smart Hospital and Blood Bank Management System built with the MERN stack, featuring role-based dashboards for admins, doctors, and patients, plus appointment booking, blood stock workflows, and medicine ordering.
 
 ## Features
-- JWT authentication with role-based authorization
-- Separate login and dashboards for Admin, Doctor, and Patient/Public user
-- Doctor discovery with specialization and availability
-- Appointment booking and role-based appointment updates
-- Blood stock visibility, donation/request flow, and admin stock controls
-- Medicine listing, cart, and checkout flow (Patient + Doctor)
-- Admin operations:
-  - View doctor profiles
-  - Edit patient medical history
-  - Manage appointments
-  - Manage order statuses
-  - Reduce/close blood supply by blood group
+
+- JWT authentication with role-based access.
+- Public, patient, doctor, and admin-facing workflows.
+- Doctor listing with specialization and availability details.
+- Appointment booking and appointment status management.
+- Blood stock visibility, donation requests, blood requests, and admin blood stock controls.
+- Medicine catalog, cart-style ordering, and order status updates.
+- Admin dashboard for doctors, patients, appointments, blood stock, and orders.
 
 ## Tech Stack
-- Frontend: React + Vite + Axios
-- Backend: Node.js + Express
-- Database: MongoDB + Mongoose
-- Auth: JWT + bcryptjs
+
+- Frontend: React, Vite, Axios, React Router
+- Backend: Node.js, Express.js
+- Database: MongoDB with Mongoose
+- Authentication: JWT and bcryptjs
 
 ## Project Structure
+
 ```text
 HOSPITAL_BANK_MERN/
 ├── backend/
@@ -42,31 +41,36 @@ HOSPITAL_BANK_MERN/
 │   │   ├── server.js
 │   │   ├── seed.js
 │   │   └── createAdmin.js
+│   ├── .env.example
 │   └── package.json
 ├── frontend/
+│   ├── public/
 │   ├── src/
 │   │   ├── api/
 │   │   ├── components/
 │   │   ├── context/
 │   │   ├── pages/
 │   │   ├── App.jsx
+│   │   ├── main.jsx
 │   │   └── styles.css
+│   ├── .env.example
 │   └── package.json
 └── README.md
 ```
 
-## Setup Instructions
+## Prerequisites
 
-### 1) Backend Setup
-```bash
-cd backend
-npm install
-```
+- Node.js 18 or newer
+- npm
+- MongoDB Atlas or a local MongoDB server
 
-Create `backend/.env`:
+## Environment Variables
+
+Create `backend/.env` from `backend/.env.example`:
+
 ```env
 MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
+JWT_SECRET=change_this_secret
 JWT_EXPIRES_IN=7d
 PORT=5000
 CORS_ORIGIN=http://localhost:5173
@@ -76,83 +80,113 @@ ADMIN_PASSWORD=ChangeThisStrongPassword
 ADMIN_REGISTER_KEY=OptionalInviteKeyForAdminSignup
 ```
 
-Run backend:
-```bash
-npm run dev
-```
+Create `frontend/.env` from `frontend/.env.example`:
 
-Optional:
-```bash
-npm run seed
-npm run create-admin
-```
-
-### 2) Frontend Setup
-```bash
-cd frontend
-npm install
-```
-
-Create `frontend/.env`:
 ```env
 VITE_API_BASE_URL=http://localhost:5000
 ```
 
-Run frontend:
+Do not commit `.env` files. Keep real database URLs, JWT secrets, and passwords local.
+
+## Installation
+
+Install backend dependencies:
+
 ```bash
+cd backend
+npm install
+```
+
+Install frontend dependencies:
+
+```bash
+cd ../frontend
+npm install
+```
+
+## Running Locally
+
+Start the backend API:
+
+```bash
+cd backend
 npm run dev
 ```
 
-Build frontend:
+Start the frontend in a second terminal:
+
 ```bash
-npm run build
+cd frontend
+npm run dev
 ```
 
-## Main API Routes
+Default local URLs:
 
-### Auth
+- Frontend: `http://localhost:5173`
+- Backend: `http://localhost:5000`
+
+## Useful Scripts
+
+Backend:
+
+```bash
+npm run dev
+npm start
+npm run seed
+npm run create-admin
+```
+
+Frontend:
+
+```bash
+npm run dev
+npm run build
+npm run preview
+```
+
+## API Overview
+
+Authentication:
+
 - `POST /api/auth/register`
 - `POST /api/auth/login`
 - `GET /api/auth/me`
 
-### Admin
+Admin:
+
 - `POST /api/admin/login`
 - `GET /api/admin/doctors`
-- `GET /api/admin/doctors/:id`
 - `GET /api/admin/patients`
-- `PUT /api/admin/patients/:id/medical-history`
 - `GET /api/admin/appointments`
-- `PUT /api/admin/appointments/:id`
 - `GET /api/admin/blood`
-- `PATCH /api/admin/blood/:id/reduce`
-- `PATCH /api/admin/blood/:id/close`
 - `GET /api/admin/orders`
-- `PUT /api/admin/orders/:id`
 
-### Doctors
+Doctors:
+
 - `GET /api/doctors`
 - `GET /api/doctors/me`
 - `PUT /api/doctors/me`
 - `GET /api/doctors/:id`
-- `POST /api/doctors` (admin)
-- `PUT /api/doctors/:id` (admin)
+- `POST /api/doctors`
+- `PUT /api/doctors/:id`
 
-### Patients
+Patients:
+
 - `POST /api/patients`
 - `GET /api/patients/me`
 - `GET /api/patients`
 - `GET /api/patients/:id`
 - `PUT /api/patients/:id`
-- `PATCH /api/patients/:id/admit`
-- `PATCH /api/patients/:id/discharge`
 
-### Appointments
+Appointments:
+
 - `POST /api/appointments`
 - `GET /api/appointments`
 - `GET /api/appointments/:id`
 - `PUT /api/appointments/:id`
 
-### Blood Bank
+Blood Bank:
+
 - `GET /api/blood`
 - `POST /api/blood`
 - `POST /api/blood/donation`
@@ -160,17 +194,30 @@ npm run build
 - `GET /api/blood/requests/me`
 - `GET /api/blood/requests`
 
-### Medicines
+Medicines:
+
 - `GET /api/medicines`
 - `POST /api/medicines`
 - `PUT /api/medicines/:id`
 
-### Orders
+Orders:
+
 - `POST /api/orders`
 - `GET /api/orders`
 - `PUT /api/orders/:id`
 
-## Notes
-- If you use MongoDB Atlas, whitelist your current IP in Network Access.
-- Keep `JWT_SECRET` strong and never commit `.env` files.
-- This project is course-focused and can be extended with payments, notifications, and audit logs.
+## Deployment Notes
+
+- Set `MONGO_URI`, `JWT_SECRET`, and admin credentials in the backend hosting environment.
+- Set `VITE_API_BASE_URL` to the deployed backend URL before building the frontend.
+- Add the deployed frontend URL to `CORS_ORIGIN`.
+- If using MongoDB Atlas, allow the deployment server IP address in Network Access.
+
+## Repository Hygiene
+
+The repository should track source files, package manifests, lock files, public assets, and example environment files. It should not track:
+
+- `node_modules/`
+- `dist/`
+- `.env`
+- logs or local machine files
