@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 
 const Home = () => {
@@ -22,9 +23,9 @@ const Home = () => {
             and hospital management. Everything runs in one secure place with role-based access.
           </p>
           <div className="hero-actions">
-            <a className="btn primary" href={quickCta.href}>{quickCta.label}</a>
-            <a className="btn ghost" href="/doctors">Find Doctors</a>
-            <a className="btn ghost" href="/blood">Check Blood Stock</a>
+            <Link className="btn primary" to={quickCta.href}>{quickCta.label}</Link>
+            <Link className="btn ghost" to="/doctors">Find Doctors</Link>
+            <Link className="btn ghost" to="/blood">Check Blood Stock</Link>
           </div>
           <div className="stats">
             <div className="stat">
